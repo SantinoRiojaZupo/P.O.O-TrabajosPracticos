@@ -1,0 +1,8 @@
+C:\Users\Alumno\source\repos\SantinoRioja\P.O.O-TrabajosPracticos\TP1-SantinoRioja\TrabajoPractico\obj\Debug\Simulación de Copos de Nieve cayendo.csproj.AssemblyReference.cache
+C:\Users\Alumno\source\repos\SantinoRioja\P.O.O-TrabajosPracticos\TP1-SantinoRioja\TrabajoPractico\obj\Debug\Simulación de Copos de Nieve cayendo.csproj.CoreCompileInputs.cache
+C:\Users\Alumno\source\repos\SantinoRioja\P.O.O-TrabajosPracticos\TP1-SantinoRioja\TrabajoPractico\bin\Debug\TrabajoPractico.exe.config
+C:\Users\Alumno\source\repos\SantinoRioja\P.O.O-TrabajosPracticos\TP1-SantinoRioja\TrabajoPractico\bin\Debug\TrabajoPractico.exe
+C:\Users\Alumno\source\repos\SantinoRioja\P.O.O-TrabajosPracticos\TP1-SantinoRioja\TrabajoPractico\bin\Debug\TrabajoPractico.pdb
+C:\Users\Alumno\source\repos\SantinoRioja\P.O.O-TrabajosPracticos\TP1-SantinoRioja\TrabajoPractico\obj\Debug\TrabajoPractico.exe
+C:\Users\Alumno\source\repos\SantinoRioja\P.O.O-TrabajosPracticos\TP1-SantinoRioja\TrabajoPractico\obj\Debug\TrabajoPractico.pdb
+C:\Users\Alumno\source\repos\SantinoRioja\P.O.O-TrabajosPracticos\TP1-SantinoRioja\TrabajoPractico\obj\Debug\TrabajoPractico.exe.config
