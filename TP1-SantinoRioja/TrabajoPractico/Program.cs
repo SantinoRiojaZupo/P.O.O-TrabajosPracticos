@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace TrabajoPractico
 {
@@ -28,57 +29,145 @@ El programa debe ejecutarse en un ciclo continuo, simulando de manera animada la
 
     class Configuracion
     {
-        int cantFilas = 10, cantColumnas = 10;
-        int velCaida=3000;/*Thread.Sleep(3000);*/
+        int cantFilas = 20, cantColumnas = 10;
+        int velCaida=500;/*Thread.Sleep(3000);*/
 
-        public Configuracion()
-        {
-            string[,] consola = new string[cantFilas,cantColumnas];
-
-        }
         public int CantFilas{
-            get; set;
+            get { return cantFilas; } set { cantFilas = value; }
         }
         public int CantColumnas
         {
-            get; set;
+            get { return cantColumnas; } set { cantColumnas = value; }
         }
         public int VelCaida
         {
             get { return velCaida; }
             set { velCaida = value; }
         }
-
-        List<Copo> copos = new List<Copo>();    
+   
     }
-    class Copo : Configuracion
+    class Copo
     {
         int posX, posY;
-        public Copo()
+        public Copo(int x)
         {
-            Random random = new Random();
-            while (true) { 
-            this.posX = random.Next(0, 9); 
-
-                mostrar(this.posX, this.posY);
-            } 
+            posX = x;
+            posY = 0;
         }
-        public void mostrar(int posX, int posY)
+        public void mover()
         {
-            Console.CursorVisible = false;
-            this.posX = posX;
-            this.posY = posY;
-            Console.SetCursorPosition(this.posX, this.posY);
+            posY++;
+        }
+        public void mostrar()
+        {
+            
+            Console.SetCursorPosition(posX,posY);
             Console.Write("*");
-            Thread.Sleep(VelCaida);
         }   
+        public int PosY
+        {
+            get { return posY; }
+            set { posY = value; }
+        } public int PosX { 
+            get { return posX; }
+            set { posX = value; }
+        }
     }
     internal class Program
     {
         static void Main(string[] args)
         {
-            Copo copo1 = new Copo();
+            Configuracion config = new Configuracion();
+            string[,] consola = new string[config.CantFilas, config.CantColumnas];
+         
+            List<Copo> copos = new List<Copo>();
+               
+            Random random = new Random();
+            Console.CursorVisible = false;
+            while (true) { 
+           int posX = random.Next(0, config.CantColumnas); 
+
+               copos.Add(new Copo(posX));
+
+                foreach (Copo copo in copos)
+                {
+                    if (copo.PosY == config.CantFilas-1)
+                    {
+
+                    }
+                       else if (consola[copo.PosY + 1,copo.PosX] == "*")
+                        {
+
+                        }
+                        else
+                        {
+                    consola[copo.PosY, copo.PosX] = "";
+                            copo.mover();
+                        }
+                    consola[copo.PosY, copo.PosX] = "*";
+                 
+                    copo.mostrar();
+                }
+                Thread.Sleep(config.VelCaida);
+
+                //aca cuenta los copos de las filas y los borra
+                //si queres que se borre la ultima de todas quita el primer for y cambia i por config.CantidadFilas-1
+                int contador = 0;
+                for(int i = 0; i < config.CantFilas; i++)
+                {
+                    contador = 0;
+                    for (int j=0; j<config.CantColumnas;j++)
+                    { 
+                if (consola[i, j]=="*")
+                    {
+                        contador++;
+                    }
+
+                    }
+                if(contador == config.CantColumnas)
+                {
+                            int filaBorrar = i;
+                   for(int k=0;k<config.CantColumnas;k++)
+                            {
+                        consola[i, k] = "";
+
+                            }
+                for (int l = copos.Count - 1; l >= 0; l--)
+                {
+                    if (copos[l].PosY == filaBorrar)
+                                    { 
+                        copos.RemoveAt(l);
+                                }
+                              
+                }
+                            foreach (Copo copo in copos)
+                            {
+                                if (copo.PosY<filaBorrar)
+                                { 
+                                copo.PosY++;
+                                }
+                            }
+                            for (int p=filaBorrar-1; p >= 0; p--)
+                            {
+                                for (int k =0;k< config.CantColumnas; k++)
+                                {
+                                    consola[p + 1, k] = consola[p, k];
+                                }
+                            }
+                            for (int k = 0; k < config.CantColumnas; k++)
+                            {
+                                consola[0, k] = "";
+                            }
+
+                            contador = 0;
+                            
+                        }
+                }
+                Console.Clear();
+               
+            } 
+        
             Console.ReadKey();
-        }
+        }   
     }
 }
