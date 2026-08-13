@@ -38,9 +38,10 @@ El programa debe ejecutarse en un ciclo continuo,
 
     class Configuracion
     {
-        int cantFilas = 20, cantColumnas = 10;
-        int velCaida = 300;/*Thread.Sleep(3000);*/
-        int intensidad = 5;
+        int cantFilas = 20, cantColumnas = 20;
+        int velSubida = 300;/*Thread.Sleep(3000);*/
+        int cantMaxBurbujas = 30;
+        
 
         public int CantFilas
         {
@@ -52,15 +53,16 @@ El programa debe ejecutarse en un ciclo continuo,
             get { return cantColumnas; }
             set { cantColumnas = value; }
         }
-        public int VelCaida
+        public int VelSubida
         {
-            get { return velCaida; }
-            set { velCaida = value; }
+            get { return velSubida; }
+            set { velSubida= value; }
         }
-        public int Intensidad
+       
+        public int CantMaxBurbujas
         {
-            get { return intensidad; }
-            set { intensidad = value; }
+            get { return cantMaxBurbujas; }
+            set { cantMaxBurbujas = value; }
         }
 
     }
@@ -104,19 +106,17 @@ El programa debe ejecutarse en un ciclo continuo,
             List<Copo> copos = new List<Copo>();
 
             Random random = new Random();
-            Random viento = new Random();
+            Random movimiento = new Random();
             Console.CursorVisible = false;
             while (true)
             {
                 int posX = random.Next(0, config.CantColumnas);
-                int posicionviento = viento.Next(0, 2);
-                int cantidadCopos = random.Next(1, config.Intensidad);
+                int posicionviento = movimiento.Next(0, 2);
+                
 
-                for (int i = 0; i < cantidadCopos; i++)
-                {
                     copos.Add(new Copo(posX, config.CantFilas));
 
-                }
+                
 
                 foreach (Copo copo in copos)
                 {
@@ -137,7 +137,7 @@ El programa debe ejecutarse en un ciclo continuo,
 
                     copo.mostrar();
                 }
-                Thread.Sleep(config.VelCaida);
+                Thread.Sleep(config.VelSubida);
 
                 //aca cuenta los copos de las filas y los borra
                 //si queres que se borre la ultima de todas quita el primer for y cambia i por config.CantidadFilas-1
