@@ -68,21 +68,26 @@ El programa debe ejecutarse en un ciclo continuo,
     }
     class Copo
     {
-        int posX, posY;
-        public Copo(int x, int cantidadFilas)
+        int posX, posY, velocidad;
+        public Copo(int x, int cantidadFilas,int vel)
         {
             posX = x;
             posY = cantidadFilas - 1;
+            velocidad = vel;
         }
         public void mover()
         {
-            posY--;
+            posY-=velocidad;
         }
         public void mostrar()
         {
 
             Console.SetCursorPosition(posX, posY);
             Console.Write("o");
+        }
+        public void cambiarVel(int vel)
+        {
+            velocidad -= vel;
         }
         public int PosY
         {
@@ -93,6 +98,11 @@ El programa debe ejecutarse en un ciclo continuo,
         {
             get { return posX; }
             set { posX = value; }
+        }
+        public int Velocidad
+        {
+            get { return velocidad; }
+            set { velocidad= value; }
         }
     }
     internal class Program
@@ -111,10 +121,11 @@ El programa debe ejecutarse en un ciclo continuo,
             while (true)
             {
                 int posX = random.Next(0, config.CantColumnas);
-                int posicionviento = movimiento.Next(0, 2);
+                int posicionMover = movimiento.Next(0, 2);
+                int vel = random.Next(1, 3);
                 
 
-                    copos.Add(new Copo(posX, config.CantFilas));
+                    copos.Add(new Copo(posX, config.CantFilas, vel));
 
                 
 
@@ -124,16 +135,26 @@ El programa debe ejecutarse en un ciclo continuo,
                     {
 
                     }
-                    else if ((copo.PosY > 0) && (consola[copo.PosY - 1, copo.PosX] == "o"))
+                    else if (copo.PosY - copo.Velocidad <= 0)
                     {
 
                     }
-                    else if (copo.PosY != config.CantFilas)
+                    else if ((copo.PosY > 0) && (consola[copo.PosY - copo.Velocidad, copo.PosX] == "o"))
+                    {
+
+                    }
+                    else if (copo.PosY-copo.Velocidad<=0 )
+                    {
+                        copo.cambiarVel(copo.Velocidad - 1);
+                    }
+                    else if ((copo.PosY != config.CantFilas) || ((copo.PosY - copo.Velocidad) > 0 && (consola[copo.PosY - copo.Velocidad, copo.PosX] == "o")))
                     {
                         consola[copo.PosY, copo.PosX] = "";
+
                         copo.mover();
                     }
-                    consola[copo.PosY, copo.PosX] = "o";
+
+                        consola[copo.PosY, copo.PosX] = "o";
 
                     copo.mostrar();
                 }
@@ -141,63 +162,14 @@ El programa debe ejecutarse en un ciclo continuo,
 
                 //aca cuenta los copos de las filas y los borra
                 //si queres que se borre la ultima de todas quita el primer for y cambia i por config.CantidadFilas-1
-                int contador = 0;
-                for (int i = 0; i < config.CantFilas; i++)
-                {
-                    contador = 0;
-                    for (int j = 0; j < config.CantColumnas; j++)
-                    {
-                        if (consola[i, j] == "o")
-                        {
-                            contador++;
-                        }
-
-                    }
-                    if (contador == config.CantColumnas)
-                    {
-                        int filaBorrar = i;
-                        for (int k = 0; k < config.CantColumnas; k++)
-                        {
-                            consola[i, k] = "";
-
-                        }
-                        for (int l = copos.Count - 1; l >= 0; l--)
-                        {
-                            if (copos[l].PosY == filaBorrar)
-                            {
-                                copos.RemoveAt(l);
-                            }
-
-                        }
-
-
-                        for (int p = filaBorrar - 1; p >= 0; p--)
-                        {
-                            for (int k = 0; k < config.CantColumnas; k++)
-                            {
-                                consola[p + 1, k] = consola[p, k];
-                                consola[p, k] = "";
-                            }
-                        }
-
-
-                        foreach (Copo copo in copos)
-                        {
-                            if (copo.PosY > filaBorrar)
-                            {
-
-                                copo.PosY--;
-                            }
-                        }
-                        contador = 0;
-
-                    }
-                }
+               
+                copos.RemoveAll(copo=>copo.PosY==0);
+                
                 foreach (Copo copo in copos)
                 {
 
 
-                    if (posicionviento == 0)
+                    if (posicionMover == 0)
                     {
                         if (copo.PosX != 0 && consola[copo.PosY, copo.PosX - 1] != "o")
                         {
@@ -232,7 +204,7 @@ El programa debe ejecutarse en un ciclo continuo,
                     }
                 }
 
-                // Volver a burbujas los copos
+                // Volver a poner burbujas  
                 foreach (Copo copo in copos)
                 {
                     consola[copo.PosY, copo.PosX] = "o";
@@ -240,7 +212,7 @@ El programa debe ejecutarse en un ciclo continuo,
                 Console.Clear();
                 if (Console.KeyAvailable)
                 {
-                    break;
+                    
                 }
 
             }
