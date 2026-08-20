@@ -39,7 +39,7 @@ El programa debe ejecutarse en un ciclo continuo,
     class Configuracion
     {
         int cantFilas = 20, cantColumnas = 20;
-        int velSubida = 300;/*Thread.Sleep(3000);*/
+        int velSubida = 100;/*Thread.Sleep(3000);*/
         int cantMaxBurbujas = 30;
         
 
@@ -122,22 +122,25 @@ El programa debe ejecutarse en un ciclo continuo,
             while (true)
             {  
                 int aparece = random.Next(0, 2);
-                
-                int posX = random.Next(0, config.CantColumnas);
-                
-                int vel = random.Next(1, 3);
-
-                if (copos.Count() != config.CantMaxBurbujas&& aparece == 1)
+                int cantidad = random.Next(0,4);
+                for (int i = 0; i < cantidad; i++)
                 {
+                    int posX = random.Next(0, config.CantColumnas);
 
-                copos.Add(new Copo(posX, config.CantFilas, vel));
+                    int vel = random.Next(1, 3);
+
+                    if (copos.Count() != config.CantMaxBurbujas && aparece == 1)
+                    {
+
+                        copos.Add(new Copo(posX, config.CantFilas, vel));
+                    }
                 }
 
                 
 
                 foreach (Copo copo in copos)
                 {
-                    int subeOMueve = random.Next(0, 2);
+                    int Mueve = random.Next(0, 2);
                     int posicionMover = movimiento.Next(0, 2);
 
 
@@ -152,13 +155,13 @@ El programa debe ejecutarse en un ciclo continuo,
                     }
                     else
                     {
-                        if ((copo.PosY != config.CantFilas) && ((copo.PosY - copo.Velocidad) >= 0) && (subeOMueve == 0))
+                        if ((copo.PosY != config.CantFilas) && ((copo.PosY - copo.Velocidad) >= 0))
                         {
                             consola[copo.PosY, copo.PosX] = "";
 
                             copo.subir();
                         }
-                        if (subeOMueve == 1)
+                        if (Mueve == 1)
                         {
                             if (posicionMover == 0)
                             {
