@@ -6,3 +6,10 @@ C:\Users\Alumno\source\repos\SantinoRioja\P.O.O-TrabajosPracticos\TP1-Recu-Santi
 C:\Users\Alumno\source\repos\SantinoRioja\P.O.O-TrabajosPracticos\TP1-Recu-SantinoRioja\Simulacion de Burbujas Subiendo\obj\Debug\Simulacion de Burbujas Subiendo.exe
 C:\Users\Alumno\source\repos\SantinoRioja\P.O.O-TrabajosPracticos\TP1-Recu-SantinoRioja\Simulacion de Burbujas Subiendo\obj\Debug\Simulacion de Burbujas Subiendo.pdb
 C:\Users\Alumno\source\repos\SantinoRioja\P.O.O-TrabajosPracticos\TP1-Recu-SantinoRioja\Simulacion de Burbujas Subiendo\obj\Debug\Simulacion de Burbujas Subiendo.exe.config
+C:\xampp\htdocs\P.O.O-TrabajosPracticos\TP1-Recu-SantinoRioja\Simulacion de Burbujas Subiendo\bin\Debug\Simulacion de Burbujas Subiendo.exe.config
+C:\xampp\htdocs\P.O.O-TrabajosPracticos\TP1-Recu-SantinoRioja\Simulacion de Burbujas Subiendo\bin\Debug\Simulacion de Burbujas Subiendo.exe
+C:\xampp\htdocs\P.O.O-TrabajosPracticos\TP1-Recu-SantinoRioja\Simulacion de Burbujas Subiendo\bin\Debug\Simulacion de Burbujas Subiendo.pdb
+C:\xampp\htdocs\P.O.O-TrabajosPracticos\TP1-Recu-SantinoRioja\Simulacion de Burbujas Subiendo\obj\Debug\Simulacion de Burbujas Subiendo.csproj.AssemblyReference.cache
+C:\xampp\htdocs\P.O.O-TrabajosPracticos\TP1-Recu-SantinoRioja\Simulacion de Burbujas Subiendo\obj\Debug\Simulacion de Burbujas Subiendo.csproj.CoreCompileInputs.cache
+C:\xampp\htdocs\P.O.O-TrabajosPracticos\TP1-Recu-SantinoRioja\Simulacion de Burbujas Subiendo\obj\Debug\Simulacion de Burbujas Subiendo.exe
+C:\xampp\htdocs\P.O.O-TrabajosPracticos\TP1-Recu-SantinoRioja\Simulacion de Burbujas Subiendo\obj\Debug\Simulacion de Burbujas Subiendo.pdb

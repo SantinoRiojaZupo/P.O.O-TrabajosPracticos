@@ -75,10 +75,11 @@ El programa debe ejecutarse en un ciclo continuo,
             posY = cantidadFilas - 1;
             velocidad = vel;
         }
-        public void mover()
+        public void subir()
         {
             posY-=velocidad;
         }
+
         public void mostrar()
         {
 
@@ -87,7 +88,7 @@ El programa debe ejecutarse en un ciclo continuo,
         }
         public void cambiarVel(int vel)
         {
-            velocidad -= vel;
+            velocidad = vel;
         }
         public int PosY
         {
@@ -119,40 +120,66 @@ El programa debe ejecutarse en un ciclo continuo,
             Random movimiento = new Random();
             Console.CursorVisible = false;
             while (true)
-            {
-                int posX = random.Next(0, config.CantColumnas);
-                int posicionMover = movimiento.Next(0, 2);
-                int vel = random.Next(1, 3);
+            {  
+                int aparece = random.Next(0, 2);
                 
+                int posX = random.Next(0, config.CantColumnas);
+                
+                int vel = random.Next(1, 3);
 
-                    copos.Add(new Copo(posX, config.CantFilas, vel));
+                if (copos.Count() != config.CantMaxBurbujas&& aparece == 1)
+                {
+
+                copos.Add(new Copo(posX, config.CantFilas, vel));
+                }
 
                 
 
                 foreach (Copo copo in copos)
                 {
-                    if (copo.PosY == 0)
+                    int subeOMueve = random.Next(0, 2);
+                    int posicionMover = movimiento.Next(0, 2);
+
+
+                    if (copo.PosY-copo.Velocidad<0 && copo.PosY!=0)
+                    {
+                        copo.cambiarVel(copo.PosY);
+                    }
+                     if ((copo.PosY > 0) && (consola[copo.PosY - copo.Velocidad, copo.PosX] == "o"))
                     {
 
-                    }
-                    else if (copo.PosY - copo.Velocidad <= 0)
-                    {
 
                     }
-                    else if ((copo.PosY > 0) && (consola[copo.PosY - copo.Velocidad, copo.PosX] == "o"))
+                    else
                     {
+                        if ((copo.PosY != config.CantFilas) && ((copo.PosY - copo.Velocidad) >= 0) && (subeOMueve == 0))
+                        {
+                            consola[copo.PosY, copo.PosX] = "";
 
+                            copo.subir();
+                        }
+                        if (subeOMueve == 1)
+                        {
+                            if (posicionMover == 0)
+                            {
+                                if (copo.PosX != 0 && consola[copo.PosY, copo.PosX - 1] != "o")
+                                {
+                                    consola[copo.PosY, copo.PosX] = "";
+                                    copo.PosX--;
+                                }
+                            }
+                            else
+                            {
+                                if (copo.PosX != config.CantColumnas - 1 && consola[copo.PosY, copo.PosX + 1] != "o")
+                                {
+                                    consola[copo.PosY, copo.PosX] = "";
+                                    copo.PosX++;
+                                }
+                            }
+                        }
                     }
-                    else if (copo.PosY-copo.Velocidad<=0 )
-                    {
-                        copo.cambiarVel(copo.Velocidad - 1);
-                    }
-                    else if ((copo.PosY != config.CantFilas) || ((copo.PosY - copo.Velocidad) > 0 && (consola[copo.PosY - copo.Velocidad, copo.PosX] == "o")))
-                    {
-                        consola[copo.PosY, copo.PosX] = "";
-
-                        copo.mover();
-                    }
+                    
+                    
 
                         consola[copo.PosY, copo.PosX] = "o";
 
@@ -160,40 +187,12 @@ El programa debe ejecutarse en un ciclo continuo,
                 }
                 Thread.Sleep(config.VelSubida);
 
-                //aca cuenta los copos de las filas y los borra
-                //si queres que se borre la ultima de todas quita el primer for y cambia i por config.CantidadFilas-1
+             
                
                 copos.RemoveAll(copo=>copo.PosY==0);
                 
-                foreach (Copo copo in copos)
-                {
-
-
-                    if (posicionMover == 0)
-                    {
-                        if (copo.PosX != 0 && consola[copo.PosY, copo.PosX - 1] != "o")
-                        {
-                            copo.PosX--;
-                        }
-                    }
-                    else
-                    {
-                        if (copo.PosX != config.CantColumnas - 1 && consola[copo.PosY, copo.PosX + 1] != "o")
-                        {
-                            copo.PosX++;
-                        }
-                    }
-
-
-                }
-                for (int l = copos.Count - 1; l >= 0; l--)
-                {
-                    if (copos[l].PosY == 0)
-                    {
-                        copos.RemoveAt(l);
-                    }
-
-                }
+              
+               
 
                 //quitar burbujas que sobran
                 for (int i = 0; i < config.CantFilas; i++)
