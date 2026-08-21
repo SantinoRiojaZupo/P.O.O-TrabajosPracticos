@@ -38,7 +38,7 @@ El programa debe ejecutarse en un ciclo continuo,
 
     class Configuracion
     {
-        int cantFilas = 20, cantColumnas = 20;
+        int cantFilas = 20, cantColumnas = 30;
         int velSubida = 100;/*Thread.Sleep(3000);*/
         int cantMaxBurbujas = 30;
         
@@ -66,10 +66,10 @@ El programa debe ejecutarse en un ciclo continuo,
         }
 
     }
-    class Copo
+    class Burbuja
     {
         int posX, posY, velocidad;
-        public Copo(int x, int cantidadFilas,int vel)
+        public Burbuja(int x, int cantidadFilas,int vel)
         {
             posX = x;
             posY = cantidadFilas - 1;
@@ -114,7 +114,7 @@ El programa debe ejecutarse en un ciclo continuo,
             string[,] consola = new string[config.CantFilas, config.CantColumnas];
 
 
-            List<Copo> copos = new List<Copo>();
+            List<Burbuja> burbujas = new List<Burbuja>();
 
             Random random = new Random();
             Random movimiento = new Random();
@@ -129,54 +129,54 @@ El programa debe ejecutarse en un ciclo continuo,
 
                     int vel = random.Next(1, 3);
 
-                    if (copos.Count() != config.CantMaxBurbujas && aparece == 1)
+                    if (burbujas.Count() != config.CantMaxBurbujas && aparece == 1)
                     {
 
-                        copos.Add(new Copo(posX, config.CantFilas, vel));
+                        burbujas.Add(new Burbuja(posX, config.CantFilas, vel));
                     }
                 }
 
                 
 
-                foreach (Copo copo in copos)
+                foreach (Burbuja burbuja in burbujas)
                 {
                     int Mueve = random.Next(0, 2);
                     int posicionMover = movimiento.Next(0, 2);
 
 
-                    if (copo.PosY-copo.Velocidad<0 && copo.PosY!=0)
+                    if (burbuja.PosY-burbuja.Velocidad<0 && burbuja.PosY!=0)
                     {
-                        copo.cambiarVel(copo.PosY);
+                        burbuja.cambiarVel(burbuja.PosY);
                     }
-                     if ((copo.PosY > 0) && (consola[copo.PosY - copo.Velocidad, copo.PosX] == "o"))
+                     if ((burbuja.PosY > 0) && (consola[burbuja.PosY - burbuja.Velocidad, burbuja.PosX] == "o"))
                     {
 
 
                     }
                     else
                     {
-                        if ((copo.PosY != config.CantFilas) && ((copo.PosY - copo.Velocidad) >= 0))
+                        if ((burbuja.PosY - burbuja.Velocidad) >= 0)
                         {
-                            consola[copo.PosY, copo.PosX] = "";
+                            consola[burbuja.PosY, burbuja.PosX] = "";
 
-                            copo.subir();
+                            burbuja.subir();
                         }
                         if (Mueve == 1)
                         {
                             if (posicionMover == 0)
                             {
-                                if (copo.PosX != 0 && consola[copo.PosY, copo.PosX - 1] != "o")
+                                if (burbuja.PosX != 0 && consola[burbuja.PosY, burbuja.PosX - 1] != "o")
                                 {
-                                    consola[copo.PosY, copo.PosX] = "";
-                                    copo.PosX--;
+                                    consola[burbuja.PosY, burbuja.PosX] = "";
+                                    burbuja.PosX--;
                                 }
                             }
                             else
                             {
-                                if (copo.PosX != config.CantColumnas - 1 && consola[copo.PosY, copo.PosX + 1] != "o")
+                                if (burbuja.PosX != config.CantColumnas - 1 && consola[burbuja.PosY, burbuja.PosX + 1] != "o")
                                 {
-                                    consola[copo.PosY, copo.PosX] = "";
-                                    copo.PosX++;
+                                    consola[burbuja.PosY, burbuja.PosX] = "";
+                                    burbuja.PosX++;
                                 }
                             }
                         }
@@ -184,15 +184,15 @@ El programa debe ejecutarse en un ciclo continuo,
                     
                     
 
-                        consola[copo.PosY, copo.PosX] = "o";
+                        consola[burbuja.PosY, burbuja.PosX] = "o";
 
-                    copo.mostrar();
+                    burbuja.mostrar();
                 }
                 Thread.Sleep(config.VelSubida);
 
              
                
-                copos.RemoveAll(copo=>copo.PosY==0);
+                burbujas.RemoveAll(burbuja=>burbuja.PosY==0);
                 
               
                
@@ -207,15 +207,16 @@ El programa debe ejecutarse en un ciclo continuo,
                 }
 
                 // Volver a poner burbujas  
-                foreach (Copo copo in copos)
+                foreach (Burbuja burbuja in burbujas)
                 {
-                    consola[copo.PosY, copo.PosX] = "o";
+                    consola[burbuja.PosY, burbuja.PosX] = "o";
                 }
                 Console.Clear();
+                /*
                 if (Console.KeyAvailable)
                 {
                     
-                }
+                }*/
 
             }
 
